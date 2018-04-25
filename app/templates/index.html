@@ -1,0 +1,19 @@
+{% extends "appbuilder/base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>{{_("World Cup Challenge")}}</h1>
+    <p>{{_("Telefonica Employees and Friends")}}</p>
+  </div>
+</div>
+<div class="text-center">
+  {% if current_user.is_authenticated() %}
+    <h2>{{_('Welcome')}} {{current_user}}</h2>
+  {% else %}
+    <h3>{{_("Register to see the Menu's and start adding your predictions")}}</h3>
+    <h4>{{_("Once you register you will receive an e-mail from jcmarin.sip@gmail.com with a link to confirm registration")}}</h4>
+  {% endif %}
+  <img src='/static/world_cup_2018.png' height='300' width='300' class="img-thumbnail">
+</div>
+
+{% endblock %}

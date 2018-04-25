@@ -1,0 +1,33 @@
+id,name,flag,groups_id
+1,Egypt,Egypt.png,1
+2,Russia,Russia.png,1
+3,Saudi Arabia,Saudi Arabia.png,1
+4,Uruguay,Uruguay.png,1
+5,Iran,Iran.png,2
+6,Morocco,Morocco.png,2
+7,Portugal,Portugal.png,2
+8,Spain,Spain.png,2
+9,Australia,Australia.png,3
+10,Denmark,Denmark.png,3
+11,France,France.png,3
+12,Peru,Peru.png,3
+13,Argentina,Argentina.png,4
+14,Croatia,Croatia.png,4
+15,Iceland,Iceland.png,4
+16,Nigeria,Nigeria.png,4
+17,Brazil,Brazil.png,5
+18,Costa Rica,Costa Rica.png,5
+19,Switzerland,Switzerland.png,5
+20,Serbia,Serbia.png,5
+21,Germany,Germany.png,6
+22,South Korea,South Korea.png,6
+23,Mexico,Mexico.png,6
+24,Sweden,Sweden.png,6
+25,Belgium,Belgium.png,7
+26,England,England.png,7
+27,Panama,Panama.png,7
+28,Tunisia,Tunisia.png,7
+29,Colombia,Colombia.png,8
+30,Japan,Japan.png,8
+31,Poland,Poland.png,8
+32,Senegal,Senegal.png,8

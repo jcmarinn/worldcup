@@ -1,0 +1,73 @@
+# Translations template for PROJECT.
+# Copyright (C) 2018 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2018-04-21 23:36-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: app/views.py:125
+msgid "Groups"
+msgstr ""
+
+#: app/views.py:135
+msgid "Teams"
+msgstr ""
+
+#: app/views.py:140
+msgid "Game Results"
+msgstr ""
+
+#: app/views.py:150
+msgid "Standings"
+msgstr ""
+
+#: app/views.py:155
+msgid "Your Bet"
+msgstr ""
+
+#: app/views.py:161
+msgid "Scores"
+msgstr ""
+
+#: app/templates/404.html:4
+msgid "Page not found"
+msgstr ""
+
+#: app/templates/index.html:5
+msgid "World Cup Challenge"
+msgstr ""
+
+#: app/templates/index.html:6
+msgid "Telefonica Employees and Friends"
+msgstr ""
+
+#: app/templates/index.html:11
+msgid "Welcome"
+msgstr ""
+
+#: app/templates/index.html:13
+msgid "Register to see the Menu's and start adding your predictions"
+msgstr ""
+
+#: app/templates/index.html:14
+msgid ""
+"Once you register you will receive an e-mail from jcmarin.sip@gmail.com "
+"with a link to confirm registration"
+msgstr ""
+
+#: app/templates/appbuilder/footer.html:3
+msgid "Developed by JcMarin - in his spare time -"
+msgstr ""
+

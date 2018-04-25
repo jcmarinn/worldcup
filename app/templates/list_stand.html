@@ -1,0 +1,12 @@
+{% extends "appbuilder/general/model/list.html" %}
+
+{% block content %}
+    {{ super() }}
+    {% block list_search scoped %}
+    {% endblock %}
+    <h4><b>{{footer1}}</b></h4>
+    <h4>{{footer2}}</h4>
+    <h4>{{footer3}}</h4>
+    <h4>{{footer4}}</h4>
+    <h4>{{footer5}}</h4>
+{% endblock %}

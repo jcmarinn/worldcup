@@ -1,0 +1,46 @@
+{% extends "appbuilder/base.html" %}
+{% block content %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% if res %}
+<div class="container-fluid">
+<table class="table table-bordered table-sm">
+  <tr>
+    <th scope="col">Real Scores</th>
+    <th scope="col">Your Scores</th>
+  </tr>
+</div>
+<div class="container-fluid">
+  <table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+      <tr>
+        {% for i in list %}
+          <th scope="col">{{i}}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for rows in res %}
+      <tr>
+        {% for cols in rows %}
+        {% if rows.goal1 == None %}
+          <td class="table-secondary" scope="row">
+        {% elif (((rows.goal1 > rows.goal2) and True) == ((rows.goal21 > rows.goal22) and True)) and (((rows.goal2 > rows.goal1) and True) == ((rows.goal22 > rows.goal21) and True)) %}
+          <td class="table-success" scope="row">
+        {% else %}
+          <td class="table-warning" scope="row">
+        {% endif %}
+          {{cols}}</td>
+        {% endfor %}
+      {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endif %}
+{% endblock %}
