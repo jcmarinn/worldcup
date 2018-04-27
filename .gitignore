@@ -8,3 +8,4 @@ env
 venv
 *.sublime*
 .DS_Store
+nohup.out
