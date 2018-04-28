@@ -38,11 +38,12 @@ RECAPTCHA_PRIVATE_KEY = "6LeXRVMUAAAAAHcB22sYPWHSqWR6DrEsUnJs1NqG"
 
 # Config for Flask-Mail necessary for user registration
 MAIL_SERVER = 'localhost'
-MAIL_PORT = 587
-MAIL_USE_TLS = True
-MAIL_USERNAME = 'linux'
+# MAIL_PORT = 587
+MAIL_PORT = 25
+MAIL_USE_TLS = False
+MAIL_USERNAME = ''
 MAIL_PASSWORD = ''
-MAIL_DEFAULT_SENDER = 'linux@worldcup.dynu.net'
+MAIL_DEFAULT_SENDER = 'root@worldcup.dynu.net'
 
 # Uncomment to setup Full admin role name
 #AUTH_ROLE_ADMIN = 'Admin'
