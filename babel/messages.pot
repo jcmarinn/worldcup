@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-04-21 23:36-0400\n"
+"POT-Creation-Date: 2018-04-28 18:37-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,48 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/views.py:125
-msgid "Groups"
+#: app/views.py:116
+msgid "Points awarded as follow:"
 msgstr ""
 
-#: app/views.py:135
-msgid "Teams"
+#: app/views.py:117
+msgid "1) 1 x Point for every correct Game Winner/Draw Result (1 pts)"
 msgstr ""
 
-#: app/views.py:140
-msgid "Game Results"
+#: app/views.py:118
+msgid "2) 1 x Additional point for every exact Game Score = (2 pts)"
 msgstr ""
 
-#: app/views.py:150
-msgid "Standings"
-msgstr ""
-
-#: app/views.py:155
-msgid "Your Bet"
+#: app/views.py:119
+msgid "3) 5 x Points for every correct Group standing"
 msgstr ""
 
 #: app/views.py:161
-msgid "Scores"
+msgid "Groups"
+msgstr ""
+
+#: app/views.py:171
+msgid "Teams"
+msgstr ""
+
+#: app/views.py:176
+msgid "Game Results"
+msgstr ""
+
+#: app/views.py:186
+msgid "Group Standings"
+msgstr ""
+
+#: app/views.py:191
+msgid "Your Game Prediction"
+msgstr ""
+
+#: app/views.py:200
+msgid "Your Group Prediction"
+msgstr ""
+
+#: app/views.py:206
+msgid "Participants Scores"
 msgstr ""
 
 #: app/templates/404.html:4
@@ -67,7 +87,7 @@ msgid ""
 "with a link to confirm registration"
 msgstr ""
 
-#: app/templates/appbuilder/footer.html:3
-msgid "Developed by JcMarin - in his spare time -"
+#: app/templates/appbuilder/footer.html:6
+msgid "Developed by JcMarin - <i>in his personal time</i> -"
 msgstr ""
 

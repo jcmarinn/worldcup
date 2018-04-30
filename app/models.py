@@ -19,6 +19,15 @@ def get_user():
     usr = g.user.id
     return usr
 
+class Control(Model):
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('ab_user.id'), default=get_user, nullable=False)
+    name = Column(String(10), nullable=False)
+    total = Column(Integer)
+
+    def __repr__(self):
+        return self.name
+
 class Groups(Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(1), nullable=False)
@@ -70,7 +79,8 @@ class Games(Model):
 class Predict(Model):
     id = Column(Integer, primary_key=True)
     round = Column(String(15), nullable=False)
-    user = Column(Integer, default=get_user)
+    user_id = Column(Integer, ForeignKey('ab_user.id'), default=get_user, nullable=False)
+    ab_user = relationship("User")
     team1_id = Column(Integer, ForeignKey('teams.id'), nullable=False)
     team2_id = Column(Integer, ForeignKey('teams.id'), nullable=False)
     team1 = relationship("Teams", foreign_keys=[team1_id])
@@ -103,6 +113,7 @@ class Stand32(Model):
     gf = Column(Integer)
     ga = Column(Integer)
     gd = Column(Integer)
+    pos = Column(Integer)
     teams_id = Column(Integer, ForeignKey('teams.id'), nullable=False)
     teams = relationship("Teams")
 
@@ -113,6 +124,7 @@ class Stand32(Model):
 
 class UsrStand32(Model):
     id = Column(Integer, primary_key=True)
+    id_id = Column(Integer)
     user_id = Column(Integer, ForeignKey('ab_user.id'), default=get_user, nullable=False)
     ab_user = relationship("User")
     pts = Column(Integer)
@@ -122,6 +134,7 @@ class UsrStand32(Model):
     gf = Column(Integer)
     ga = Column(Integer)
     gd = Column(Integer)
+    pos = Column(Integer)
     teams_id = Column(Integer, ForeignKey('teams.id'), nullable=False)
     teams = relationship("Teams")
 
@@ -139,6 +152,15 @@ class  UsrScores(Model):
     pts_game = Column(Integer)
     pts_score = Column(Integer)
     pts_stand= Column(Integer)
+
+    def __repr__(self):
+        return self.name
+
+class TmpStd(Model):
+    id = Column(Integer, primary_key=True)
+    id_id = Column(Integer)
+    pos = Column(Integer)
+    user_id = Column(Integer, default=get_user, nullable=False)
 
     def __repr__(self):
         return self.name

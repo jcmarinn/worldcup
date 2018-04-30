@@ -4,11 +4,11 @@
   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Users <span class="caret"></span>
   </button>
-       <=== Select user to show his points
+       <=== Select user to show his Group Standing points
     <ul class="dropdown-menu">
-    {% for rows in usrs %}
-      <li><a href='/GameScores/listAll/{{rows.name}}'>{{rows.name}}</a></li>
-    {% endfor %}
+      {% for rows in usrs %}
+        <li><a href='/GameScores/list/{{rows.usr_name}}'>{{rows.usr_name}}</a></li>
+      {% endfor %}
     </ul>
   </div>
   {% if res %}
@@ -16,12 +16,11 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th style="background-color:#55FF55">+2</th>
-          <th style="background-color:#ccffcc">+1</th>
-          <th style="background-color:#fcb479">0 Points</th>
+          <th style="background-color:#ccffcc">OK +3</th>
+          <th style="background-color:#fcb479">No +0</th>
           <th style="background-color:#ffffff"><font color="Red">Pending</th>
-          <th scope="col" style="background-color:#3490ba"><font color="white">{{ _('Real Scores') }}</th>
-          <th></th>
+          <th scope="col" style="background-color:#3490ba"><font color="white">{{ _('Real Standing') }}</th>
+          <th></th><th></th><th></th><th></th><th></th><th></th><th></th>
           <th scope="col" style="background-color:#3490ba"><font color="white">{{ _('User Guess') }}</th>
           <th></th>
         </tr>
@@ -35,15 +34,9 @@
         {% for rows in res %}
         <tr>
           {% for cols in rows %}
-          {% if (rows.goal1 == None) and ((rows.goal21==none) or (rows.goal22==None))%}
+          {% if (rows.pts+rows.won+rows.loss+rows.draw == 0) %}
             <td class="table-secondary" scope="row" style="background-color:#ffffff">
-          {% elif rows.goal1 == None %}
-            <td class="table-secondary" scope="row" style="background-color:#def9fc">
-          {% elif (rows.goal21==none) or (rows.goal22==None) %}
-            <td scope="row" style="background-color:#f5aaaa">
-          {% elif (rows.goal1==rows.goal21) and (rows.goal2==rows.goal22)  %}
-            <td scope="row" style="background-color:#55FF55">
-          {% elif (((rows.goal1 > rows.goal2) and True) == ((rows.goal21 > rows.goal22) and True)) and (((rows.goal2 > rows.goal1) and True) == ((rows.goal22 > rows.goal21) and True)) %}
+          {% elif rows.pos==rows.pos2 %}
             <td scope="row" style="background-color:#ccffcc">
           {% else %}
             <td scope="row" style="background-color:#fcb479">

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-04-21 23:36-0400\n"
+"POT-Creation-Date: 2018-04-28 18:37-0400\n"
 "PO-Revision-Date: 2018-04-20 13:14-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,29 +18,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/views.py:125
+#: app/views.py:116
+msgid "Points awarded as follow:"
+msgstr "Los puntos se suman de la siguiente manera:"
+
+#: app/views.py:117
+msgid "1) 1 x Point for every correct Game Winner/Draw Result (1 pts)"
+msgstr "1) 1 x Punto por cada resultado correcto de equipo Ganador/Empate (1 pts)"
+
+#: app/views.py:118
+msgid "2) 1 x Additional point for every exact Game Score = (2 pts)"
+msgstr "2) 1 x Punto addicional por resultado exacto de Goles (2 pts)"
+
+#: app/views.py:119
+msgid "3) 5 x Points for every correct Group standing"
+msgstr "3) 5 x Puntos por Ganadores de Grupo Correctos"
+
+#: app/views.py:161
 msgid "Groups"
 msgstr "Grupos"
 
-#: app/views.py:135
+#: app/views.py:171
 msgid "Teams"
 msgstr "Equipos"
 
-#: app/views.py:140
+#: app/views.py:176
 msgid "Game Results"
 msgstr "Resultados"
 
-#: app/views.py:150
-msgid "Standings"
-msgstr "Resultados"
+#: app/views.py:186
+msgid "Group Standings"
+msgstr ""
 
-#: app/views.py:155
-msgid "Your Bet"
-msgstr "Tu Apuesta"
+#: app/views.py:191
+msgid "Your Game Prediction"
+msgstr ""
 
-#: app/views.py:161
-msgid "Scores"
-msgstr "Puntuación"
+#: app/views.py:200
+msgid "Your Group Prediction"
+msgstr ""
+
+#: app/views.py:206
+msgid "Participants Scores"
+msgstr ""
 
 #: app/templates/404.html:4
 msgid "Page not found"
@@ -66,8 +86,10 @@ msgstr "Registrate para ver los menus y agregar tus predicciones"
 msgid ""
 "Once you register you will receive an e-mail from jcmarin.sip@gmail.com "
 "with a link to confirm registration"
-msgstr "Una vez te registres te llegara un e-mail de jcmarin.sip@gmail.com para confirmar tu registro"
+msgstr ""
+"Una vez te registres te llegara un e-mail de jcmarin.sip@gmail.com para "
+"confirmar tu registro"
 
-#: app/templates/appbuilder/footer.html:3
-msgid "Developed by JcMarin - in his spare time -"
-msgstr "Desarrollado por JcMarin - en su tiempo libre -"
+#: app/templates/appbuilder/footer.html:6
+msgid "Developed by JcMarin - <i>in his personal time</i> -"
+msgstr "Desarrollado por JcMarin - <i>en su tiempo personal</i> -"
