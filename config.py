@@ -37,13 +37,12 @@ RECAPTCHA_PUBLIC_KEY = "6LeXRVMUAAAAAAfv0L4aCL4i-8WbzcZMWhyV0NZ0"
 RECAPTCHA_PRIVATE_KEY = "6LeXRVMUAAAAAHcB22sYPWHSqWR6DrEsUnJs1NqG"
 
 # Config for Flask-Mail necessary for user registration
-MAIL_SERVER = 'localhost'
-# MAIL_PORT = 587
-MAIL_PORT = 25
-MAIL_USE_TLS = False
-MAIL_USERNAME = ''
-MAIL_PASSWORD = ''
-MAIL_DEFAULT_SENDER = 'root@worldcup.dynu.net'
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 587
+MAIL_USE_TLS = True
+MAIL_USERNAME = 'jcmarin.sip@gmail.com'
+MAIL_PASSWORD = 'sip2pis1'
+MAIL_DEFAULT_SENDER = 'jcmarin.sip@gmail.com'
 
 # Uncomment to setup Full admin role name
 #AUTH_ROLE_ADMIN = 'Admin'
