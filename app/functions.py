@@ -167,7 +167,6 @@ def calc_stand():
     e=db.session.query(Stand32, Teams).filter(Stand32.teams_id == Teams.id, Stand32.won+Stand32.loss+Stand32.draw !=0).order_by(Teams.groups_id, Stand32.pts+Stand32.gd.desc()).all()
     for r in e:
         x=db.session.query(TmpStd).filter(TmpStd.id_id == r.Stand32.id, TmpStd.user_id == 0)
-        # print x[0].id, x[0].group, x[0].pos, r.Teams.groups_id
         if r.Teams.groups_id == grp:
             x[0].pos=cont
             cont+=1
@@ -220,9 +219,7 @@ def calc_usr_stand(usr):
     grp=1
     e=db.session.query(UsrStand32, Teams).filter(UsrStand32.teams_id == Teams.id, UsrStand32.won+UsrStand32.loss+UsrStand32.draw !=0, UsrStand32.user_id == usr).order_by(Teams.groups_id, UsrStand32.pts+UsrStand32.gd.desc()).all()
     for r in e:
-        print 'r-->', r.UsrStand32.won,r.UsrStand32.loss,r.UsrStand32.draw
         x=db.session.query(TmpStd).filter(TmpStd.id_id == r.UsrStand32.id_id, TmpStd.user_id == usr)
-        # print 'Tmp-std', r.UsrStand32.teams_id ,x.count() #x[0].id_id, x[0].pos, r.Teams.groups_id
         if r.Teams.groups_id == grp:
             x[0].pos=cont
             cont+=1
@@ -252,7 +249,7 @@ def calc_bet():
                         if is_correct(r.goal1,r.goal2,i.goal1,i.goal2):
                             zz.pts_game=zz.pts_game+1
                         if (r.goal1==i.goal1)&(r.goal2==i.goal2):
-                            zz.pts_score=zz.pts_score+1
+                            zz.pts_score=zz.pts_score+2
                         zz.pts_total=zz.pts_game+zz.pts_score+zz.pts_stand
                         db.session.commit()
     e=db.session.query(Stand32).filter(Stand32.pos != 0)
@@ -296,4 +293,3 @@ def has_changed(usr):
             calc_usr_stand(usr)
             db.session.execute('UPDATE control set total='+str(add)+' WHERE user_id='+str(usr))
             db.session.commit()
-        print 'total=',total['total'], now['now'], usr

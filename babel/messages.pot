@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-04-28 18:37-0400\n"
+"POT-Creation-Date: 2018-05-01 23:49-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,52 +17,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/views.py:116
+#: app/views.py:121
 msgid "Points awarded as follow:"
 msgstr ""
 
-#: app/views.py:117
-msgid "1) 1 x Point for every correct Game Winner/Draw Result (1 pts)"
+#: app/views.py:122
+msgid "1) 1 x Point for every correct Game Winner/Draw Result (1 pts per Game)"
 msgstr ""
 
-#: app/views.py:118
-msgid "2) 1 x Additional point for every exact Game Score = (2 pts)"
+#: app/views.py:123
+msgid ""
+"2) 2 x Additional points for every exact Game Score = (3 total pts per "
+"Game)"
 msgstr ""
 
-#: app/views.py:119
-msgid "3) 5 x Points for every correct Group standing"
+#: app/views.py:124
+msgid ""
+"3) 3 x Points for every correct Group standing = (3 pts per Group "
+"Standing)"
 msgstr ""
 
-#: app/views.py:161
+#: app/views.py:175
 msgid "Groups"
 msgstr ""
 
-#: app/views.py:171
+#: app/views.py:181
 msgid "Teams"
 msgstr ""
 
-#: app/views.py:176
+#: app/views.py:190
 msgid "Game Results"
 msgstr ""
 
-#: app/views.py:186
+#: app/views.py:200
 msgid "Group Standings"
 msgstr ""
 
-#: app/views.py:191
+#: app/views.py:205
 msgid "Your Game Prediction"
 msgstr ""
 
-#: app/views.py:200
+#: app/views.py:211
+msgid "Games Results Score"
+msgstr ""
+
+#: app/views.py:212
+msgid "Group Standing Score"
+msgstr ""
+
+#: app/views.py:216
 msgid "Your Group Prediction"
 msgstr ""
 
-#: app/views.py:206
+#: app/views.py:221
 msgid "Participants Scores"
 msgstr ""
 
 #: app/templates/404.html:4
 msgid "Page not found"
+msgstr ""
+
+#: app/templates/comp_games.html:23
+msgid "Real Scores"
+msgstr ""
+
+#: app/templates/comp_games.html:25 app/templates/comp_stand.html:24
+msgid "User Guess"
+msgstr ""
+
+#: app/templates/comp_stand.html:22
+msgid "Real Standing"
 msgstr ""
 
 #: app/templates/index.html:5

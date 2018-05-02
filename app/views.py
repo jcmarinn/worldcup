@@ -119,9 +119,9 @@ class UsrScoresView(ModelView):
     order_columns = ['pts_total']
     list_template = 'list_stand.html'
     extra_args = {'footer1':_('Points awarded as follow:'),
-                  'footer2':_('1) 1 x Point for every correct Game Winner/Draw Result (1 pts)'),
-                  'footer3':_('2) 1 x Additional point for every exact Game Score = (2 pts)'),
-                  'footer4':_('3) 3 x Points for every correct Group standing'),
+                  'footer2':_('1) 1 x Point for every correct Game Winner/Draw Result (1 pts per Game)'),
+                  'footer3':_('2) 2 x Additional points for every exact Game Score = (3 total pts per Game)'),
+                  'footer4':_('3) 3 x Points for every correct Group standing = (3 pts per Group Standing)'),
                   'footer5':'',
                   }
 
@@ -134,19 +134,23 @@ class UsrScoresView(ModelView):
 class AllGameScores(BaseView):
     route_base = "/GameScores"
 
-    @expose('/list/<string:param1>')
+    @expose('/list/<string:usr>')
     @has_access
-    def list(self, param1):
+    def list(self, usr):
+        if usr == 'User':
+            usr = current_user.first_name+' '+current_user.last_name
         usrs = db.session.execute('SELECT distinct usr_name from comp_stand')
-        res = db.session.execute('SELECT * FROM comp_stand WHERE usr_name ='+r"'"+param1+r"'"+' order by grp, pos')
+        res = db.session.execute('SELECT * FROM comp_stand WHERE usr_name ='+r"'"+usr+r"'"+' order by grp, pos')
         list = ['usr','Grp','Team','Pos', 'Pts','Won','Loss','Draw','G-Fa','G-Ag','GDif','Pos','Pts','Won','Loss','Draw','G-Fa','G-Ag','GDif']
         return self.render_template('comp_stand.html', usrs=usrs, res=res, list=list)
 
-    @expose('/listAll/<string:param2>')
+    @expose('/listAll/<string:usr>')
     @has_access
-    def listAll(self, param2):
+    def listAll(self, usr):
+        if usr == 'User':
+            usr = current_user.first_name+' '+current_user.last_name
         usrs = db.session.execute('SELECT distinct name from comp_games')
-        res = db.session.execute('SELECT * FROM comp_games where name ='+r"'"+param2+r"'")
+        res = db.session.execute('SELECT * FROM comp_games where name ='+r"'"+usr+r"'")
         list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
         return self.render_template('comp_games.html', usrs=usrs, res=res, list=list)
 
@@ -204,8 +208,8 @@ appbuilder.add_view(PredictView, "Your Game Prediction",
                     category_icon = "fa-thumbs-up")
 
 appbuilder.add_view_no_menu(AllGameScores())
-appbuilder.add_link("Games Results Score", href='/GameScores/listAll/Juan Marin', icon = "fa-check", category='Users Standings')
-appbuilder.add_link("Group Standing Score", href='/GameScores/list/Juan Marin', icon = "fa-check", category='Users Standings')
+appbuilder.add_link("Games Results Score", label=_('Games Results Score'), href='/GameScores/listAll/User', icon = "fa-check", category='Users Standings')
+appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href='/GameScores/list/User', icon = "fa-check", category='Users Standings')
 
 
 appbuilder.add_view(UsrStand32View, "Your Group Prediction",
@@ -219,7 +223,6 @@ appbuilder.add_view(UsrScoresView, "Scores",
                     category="Users Standings")
 
 appbuilder.add_view(ControlView, "Control",
-                    label=_('Control'),
                     icon="fa-users",
                     category="Security")
 

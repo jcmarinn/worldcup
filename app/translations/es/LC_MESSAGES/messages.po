@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-04-28 18:37-0400\n"
+"POT-Creation-Date: 2018-05-01 23:49-0400\n"
 "PO-Revision-Date: 2018-04-20 13:14-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,53 +18,77 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.3\n"
 
-#: app/views.py:116
+#: app/views.py:121
 msgid "Points awarded as follow:"
 msgstr "Los puntos se suman de la siguiente manera:"
 
-#: app/views.py:117
-msgid "1) 1 x Point for every correct Game Winner/Draw Result (1 pts)"
-msgstr "1) 1 x Punto por cada resultado correcto de equipo Ganador/Empate (1 pts)"
+#: app/views.py:122
+msgid "1) 1 x Point for every correct Game Winner/Draw Result (1 pts per Game)"
+msgstr "1) 1 x Punto por cada correcto resultado de equipo ganador/empate (1 pto por Juego) "
 
-#: app/views.py:118
-msgid "2) 1 x Additional point for every exact Game Score = (2 pts)"
-msgstr "2) 1 x Punto addicional por resultado exacto de Goles (2 pts)"
+#: app/views.py:123
+msgid ""
+"2) 2 x Additional points for every exact Game Score = (3 total pts per "
+"Game)"
+msgstr "2) 2 x Puntos addicionales por cada juego con marcador exacto (3 puntos totales por Juego)"
 
-#: app/views.py:119
-msgid "3) 5 x Points for every correct Group standing"
-msgstr "3) 5 x Puntos por Ganadores de Grupo Correctos"
+#: app/views.py:124
+msgid ""
+"3) 3 x Points for every correct Group standing = (3 pts per Group "
+"Standing)"
+msgstr "3) 3 x puntos por cada posicion correcta de Grupo (3 puntos por cad lugar de Grupo)"
 
-#: app/views.py:161
+#: app/views.py:175
 msgid "Groups"
 msgstr "Grupos"
 
-#: app/views.py:171
+#: app/views.py:181
 msgid "Teams"
 msgstr "Equipos"
 
-#: app/views.py:176
+#: app/views.py:190
 msgid "Game Results"
 msgstr "Resultados"
 
-#: app/views.py:186
-msgid "Group Standings"
-msgstr ""
-
-#: app/views.py:191
-msgid "Your Game Prediction"
-msgstr ""
-
 #: app/views.py:200
-msgid "Your Group Prediction"
-msgstr ""
+msgid "Group Standings"
+msgstr "Resultados de Grupo"
 
-#: app/views.py:206
+#: app/views.py:205
+msgid "Your Game Prediction"
+msgstr "Tus predicciones de Partidos"
+
+#: app/views.py:211
+msgid "Games Results Score"
+msgstr "Puntos por Partidos"
+
+#: app/views.py:212
+msgid "Group Standing Score"
+msgstr "Puntos por tabla de Grupo"
+
+#: app/views.py:216
+msgid "Your Group Prediction"
+msgstr "Tus predicciones de Grupo"
+
+#: app/views.py:221
 msgid "Participants Scores"
-msgstr ""
+msgstr "Puntos por Participante"
 
 #: app/templates/404.html:4
 msgid "Page not found"
 msgstr "Pagina no encontrada"
+
+#: app/templates/comp_games.html:23
+msgid "Real Scores"
+msgstr "Resultados Reales"
+
+#: app/templates/comp_games.html:25 app/templates/comp_stand.html:24
+msgid "User Guess"
+msgstr "Prediccion de Participante"
+
+#: app/templates/comp_stand.html:22
+msgid "Real Standing"
+msgstr "REsultados de Grupo"
 
 #: app/templates/index.html:5
 msgid "World Cup Challenge"
@@ -76,7 +100,7 @@ msgstr "Empelados de Telefonica y Amigos"
 
 #: app/templates/index.html:11
 msgid "Welcome"
-msgstr ""
+msgstr "Bienvenido"
 
 #: app/templates/index.html:13
 msgid "Register to see the Menu's and start adding your predictions"

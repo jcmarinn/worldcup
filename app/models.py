@@ -7,7 +7,6 @@ from flask_appbuilder.filemanager import ImageManager
 from flask_appbuilder.security.sqla.models import User
 from sqlalchemy import Column, Integer, String, ForeignKey, Date, DateTime
 from sqlalchemy.orm import relationship
-from flask_appbuilder import Model
 
 """
 You can use the extra Flask-AppBuilder fields and Mixin's
