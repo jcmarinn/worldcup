@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-05-01 23:49-0400\n"
+"POT-Creation-Date: 2018-05-02 00:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,15 +26,11 @@ msgid "1) 1 x Point for every correct Game Winner/Draw Result (1 pts per Game)"
 msgstr ""
 
 #: app/views.py:123
-msgid ""
-"2) 2 x Additional points for every exact Game Score = (3 total pts per "
-"Game)"
+msgid "2) 2 x Additional points for every exact Game Score (3 total pts per Game)"
 msgstr ""
 
 #: app/views.py:124
-msgid ""
-"3) 3 x Points for every correct Group standing = (3 pts per Group "
-"Standing)"
+msgid "3) 3 x Points for every correct Group standing (3 pts per Group Standing)"
 msgstr ""
 
 #: app/views.py:175
@@ -54,7 +50,7 @@ msgid "Group Standings"
 msgstr ""
 
 #: app/views.py:205
-msgid "Your Game Prediction"
+msgid "Your Prediction"
 msgstr ""
 
 #: app/views.py:211

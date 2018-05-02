@@ -120,8 +120,8 @@ class UsrScoresView(ModelView):
     list_template = 'list_stand.html'
     extra_args = {'footer1':_('Points awarded as follow:'),
                   'footer2':_('1) 1 x Point for every correct Game Winner/Draw Result (1 pts per Game)'),
-                  'footer3':_('2) 2 x Additional points for every exact Game Score = (3 total pts per Game)'),
-                  'footer4':_('3) 3 x Points for every correct Group standing = (3 pts per Group Standing)'),
+                  'footer3':_('2) 2 x Additional points for every exact Game Score (3 total pts per Game)'),
+                  'footer4':_('3) 3 x Points for every correct Group standing (3 pts per Group Standing)'),
                   'footer5':'',
                   }
 
@@ -189,22 +189,22 @@ appbuilder.add_view(GroupsView, "Edit Groups",
 appbuilder.add_view(GamesView, "Games",
                     label=_('Game Results'),
                     icon = "fa-calendar",
-                    category="Real Results",
+                    category="Game Results",
                     category_icon = "fa-list-ol")
 
 appbuilder.add_view(GamesViewAdm, "Games_Mod",
                     icon = "fa-calendar",
-                    category="Real Results")
+                    category="Game Results")
 
 appbuilder.add_view(Stand32View, "Standings",
                     label=_('Group Standings'),
                     icon = "fa-list-ol",
-                    category="Real Results")
+                    category="Game Results")
 
-appbuilder.add_view(PredictView, "Your Game Prediction",
-                    label=_('Your Game Prediction'),
+appbuilder.add_view(PredictView, "Your Prediction",
+                    label=_('Your Prediction'),
                     icon = "fa-futbol-o",
-                    category="Your Bet",
+                    category="Your Prediction",
                     category_icon = "fa-thumbs-up")
 
 appbuilder.add_view_no_menu(AllGameScores())
@@ -215,7 +215,7 @@ appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href
 appbuilder.add_view(UsrStand32View, "Your Group Prediction",
                     label=_('Your Group Prediction'),
                     icon = "fa-list",
-                    category="Your Bet")
+                    category="Your Prediction")
 
 appbuilder.add_view(UsrScoresView, "Scores",
                     label=_('Participants Scores'),

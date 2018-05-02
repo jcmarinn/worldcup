@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-05-01 23:49-0400\n"
+"POT-Creation-Date: 2018-05-02 00:16-0400\n"
 "PO-Revision-Date: 2018-04-20 13:14-0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -24,19 +24,17 @@ msgstr "Los puntos se suman de la siguiente manera:"
 
 #: app/views.py:122
 msgid "1) 1 x Point for every correct Game Winner/Draw Result (1 pts per Game)"
-msgstr "1) 1 x Punto por cada correcto resultado de equipo ganador/empate (1 pto por Juego) "
+msgstr ""
+"1) 1 x Punto por cada correcto resultado de equipo ganador/empate (1 pto "
+"por Juego) "
 
 #: app/views.py:123
-msgid ""
-"2) 2 x Additional points for every exact Game Score = (3 total pts per "
-"Game)"
-msgstr "2) 2 x Puntos addicionales por cada juego con marcador exacto (3 puntos totales por Juego)"
+msgid "2) 2 x Additional points for every exact Game Score (3 total pts per Game)"
+msgstr "2) 2 x Puntos addicionales por cada resultado de juego exacto (3 pts totales por Juego)"
 
 #: app/views.py:124
-msgid ""
-"3) 3 x Points for every correct Group standing = (3 pts per Group "
-"Standing)"
-msgstr "3) 3 x puntos por cada posicion correcta de Grupo (3 puntos por cad lugar de Grupo)"
+msgid "3) 3 x Points for every correct Group standing (3 pts per Group Standing)"
+msgstr "3) 3 x Puntos por posicioon de Grupo correcto (3 pts por posicion de Grupo)"
 
 #: app/views.py:175
 msgid "Groups"
@@ -55,8 +53,8 @@ msgid "Group Standings"
 msgstr "Resultados de Grupo"
 
 #: app/views.py:205
-msgid "Your Game Prediction"
-msgstr "Tus predicciones de Partidos"
+msgid "Your Prediction"
+msgstr "Tus Predicciones"
 
 #: app/views.py:211
 msgid "Games Results Score"
