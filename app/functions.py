@@ -162,6 +162,8 @@ def calc_stand():
         db.session.commit()
 
     # Update Group Positions
+    db.session.execute('UPDATE tmp_std set pos=0 where tmp_std.user_id=0')
+    db.session.commit()
     cont=1
     grp=1
     e=db.session.query(Stand32, Teams).filter(Stand32.teams_id == Teams.id, Stand32.won+Stand32.loss+Stand32.draw !=0).order_by(Teams.groups_id, Stand32.pts+Stand32.gd.desc()).all()
@@ -215,6 +217,8 @@ def calc_usr_stand(usr):
         db.session.commit()
 
     # Update Group Positions
+    db.session.execute('UPDATE tmp_std set pos=0, where tmp_std.user_id='+str(usr))
+    db.session.commit()
     cont=1
     grp=1
     e=db.session.query(UsrStand32, Teams).filter(UsrStand32.teams_id == Teams.id, UsrStand32.won+UsrStand32.loss+UsrStand32.draw !=0, UsrStand32.user_id == usr).order_by(Teams.groups_id, UsrStand32.pts+UsrStand32.gd.desc()).all()
