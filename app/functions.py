@@ -217,7 +217,7 @@ def calc_usr_stand(usr):
         db.session.commit()
 
     # Update Group Positions
-    db.session.execute('UPDATE tmp_std set pos=0, where tmp_std.user_id='+str(usr))
+    db.session.execute('UPDATE tmp_std set pos=0 where tmp_std.user_id='+str(usr))
     db.session.commit()
     cont=1
     grp=1
