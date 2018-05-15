@@ -113,11 +113,12 @@ class UsrStand32View(ModelView):
 
 class UsrScoresView(ModelView):
     datamodel = SQLAInterface(UsrScores)
-    list_columns = ['ab_user.first_name', 'ab_user.last_name', 'round', 'pts_total', 'pts_game','pts_score','pts_stand']
-    label_columns = {'pts_total':'Total Points' ,'pts_game':'Correct Game Winner', 'pts_score':'Correct Game Score','pts_stand':'Correct Group Standing Pts'}
+    list_columns = ['ab_user.first_name', 'ab_user.last_name', 'round', 'pts_total', 'pts_game','pts_score','pts_stand','has_paid']
+    label_columns = {'pts_total':'Total Points' ,'pts_game':'Correct Game Winner', 'pts_score':'Correct Game Score','pts_stand':'Correct Group Standing Pts','has_paid':'has paid?'}
     base_permissions = ['can_list']
     order_columns = ['pts_total']
     list_template = 'list_stand.html'
+    page_size = 20
     extra_args = {'footer1':_('Points awarded as follow:'),
                   'footer2':_('1) 1 x Point for every correct Game Winner/Draw Result (1 pts per Game)'),
                   'footer3':_('2) 2 x Additional points for every exact Game Score (3 total pts per Game)'),
@@ -210,7 +211,7 @@ appbuilder.add_view(PredictView, "Your Prediction",
 appbuilder.add_view_no_menu(AllGameScores())
 appbuilder.add_link("Games Results Score", label=_('Games Results Score'), href='/GameScores/listAll/User', icon = "fa-check", category='Users Standings')
 appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href='/GameScores/list/User', icon = "fa-check", category='Users Standings')
-
+appbuilder.add_link("Deposit your $10",label=_('Deposit your $10'), href='http://paypal.me/jcmarin/10', icon = "fa-money", category='$$$')
 
 appbuilder.add_view(UsrStand32View, "Your Group Prediction",
                     label=_('Your Group Prediction'),

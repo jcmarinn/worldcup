@@ -5,7 +5,7 @@ from flask_appbuilder.models.decorators import renders
 from flask_appbuilder.models.mixins import AuditMixin, BaseMixin, FileColumn, ImageColumn
 from flask_appbuilder.filemanager import ImageManager
 from flask_appbuilder.security.sqla.models import User
-from sqlalchemy import Column, Integer, String, ForeignKey, Date, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, Date, DateTime, Boolean
 from sqlalchemy.orm import relationship
 
 """
@@ -151,6 +151,7 @@ class  UsrScores(Model):
     pts_game = Column(Integer)
     pts_score = Column(Integer)
     pts_stand= Column(Integer)
+    has_paid=Column(Boolean)
 
     def __repr__(self):
         return self.name

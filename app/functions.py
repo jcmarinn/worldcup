@@ -114,6 +114,7 @@ def add_UsrScores(usr):
         n.pts_game = 0
         n.pts_score = 0
         n.pts_stand = 0
+        n.has_paid = 0
         db.session.add(n)
     try:
         db.session.commit()
