@@ -165,7 +165,7 @@ class ControlView(ModelView):
     datamodel = SQLAInterface(Control)
     list_columns = ['id','user_id','name','total']
 
-appbuilder.add_link("Instructions",label=_('Instructions'), href='/GameScores/instructions', icon = "fa-question", category='Rules')
+appbuilder.add_link("Instructions",label=_('Instructions'), href='/GameScores/Instructions', icon = "fa-question", category='Rules')
 
 appbuilder.add_view(GroupsTeams, "Groups",
                     href='/groupsteams/list/1',
