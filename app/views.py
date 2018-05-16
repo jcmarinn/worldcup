@@ -155,21 +155,17 @@ class AllGameScores(BaseView):
         list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
         return self.render_template('comp_games.html', usrs=usrs, res=res, list=list)
 
+    @expose('/Instructions')
+    @has_access
+    def Instructions(self):
+        return self.render_template('Instructions.html')
+
+
 class ControlView(ModelView):
     datamodel = SQLAInterface(Control)
     list_columns = ['id','user_id','name','total']
 
-
-# class Std2(Stand16View):
-#     base_filters = [['teams.groups_id', FilterEqualFunction, '2']]
-# class Std3(Stand16View):
-#     base_filters = [['teams.groups_id', FilterEqualFunction, '3']]
-# class Std4(Stand16View):
-#     base_filters = [['teams.groups_id', FilterEqualFunction, '4']]
-# class Std5(Stand16View):
-#     base_filters = [['teams.groups_id', FilterEqualFunction, '5']]
-# class Multi(MultipleView):
-#     views = [Std2, Std3,  Std4]
+appbuilder.add_link("Instructions",label=_('Instructions'), href='/GameScores/Instructions', icon = "fa-question", category='Rules')
 
 appbuilder.add_view(GroupsTeams, "Groups",
                     href='/groupsteams/list/1',
@@ -211,7 +207,7 @@ appbuilder.add_view(PredictView, "Your Prediction",
 appbuilder.add_view_no_menu(AllGameScores())
 appbuilder.add_link("Games Results Score", label=_('Games Results Score'), href='/GameScores/listAll/User', icon = "fa-check", category='Users Standings')
 appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href='/GameScores/list/User', icon = "fa-check", category='Users Standings')
-appbuilder.add_link("Deposit your $10",label=_('Deposit your $10'), href='http://paypal.me/jcmarin/10', icon = "fa-money", category='$$$')
+appbuilder.add_link("Deposit your $10",label=_('Deposit your $20'), href='http://paypal.me/jcmarin/20', icon = "fa-money", category='$$$')
 
 appbuilder.add_view(UsrStand32View, "Your Group Prediction",
                     label=_('Your Group Prediction'),
