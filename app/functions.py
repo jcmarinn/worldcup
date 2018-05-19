@@ -12,7 +12,7 @@ def limit():
     last_day='2018-06-13'
     today=now.strftime("%Y-%m-%d")
     if (today>last_day):
-        return ['']
+        return ['can_list']
     else:
         return ['can_list','can_edit']
 
@@ -35,7 +35,7 @@ def add_records(usr):
             db.session.commit()
             return True
         except Exception as e:
-            log.error('Group creation error: %s', e)
+            log.error('Games creation error: %s', e)
             db.session.rollback()
             return False
             exit(1)
@@ -79,7 +79,7 @@ def add_records(usr):
             db.session.commit()
             return True
         except Exception as e:
-            log.error('UsrStand32 creation error: %s', e)
+            log.error('TmpStd 0 creation error: %s', e)
             db.session.rollback()
             return False
             exit(1)
@@ -97,7 +97,7 @@ def add_records(usr):
             db.session.commit()
             return True
         except Exception as e:
-            log.error('UsrStand32 creation error: %s', e)
+            log.error('TmpStd creation error: %s', e)
             db.session.rollback()
             return False
             exit(1)

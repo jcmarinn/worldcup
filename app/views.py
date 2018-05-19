@@ -2,8 +2,9 @@ from flask import render_template, flash, g, redirect, session
 from flask_appbuilder.models.sqla.interface import SQLAInterface
 from flask_appbuilder.models.sqla.filters import FilterStartsWith, FilterEqualFunction
 from flask_appbuilder.actions import action
+from flask_appbuilder.fieldwidgets import TextField
 from flask_appbuilder import ModelView, CompactCRUDMixin, MasterDetailView, MultipleView, AppBuilder, expose, BaseView, has_access
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as _ , gettext
 from app import appbuilder, db
 from models import *
 from flask_appbuilder.widgets import FormInlineWidget
@@ -11,6 +12,14 @@ from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
 from functions import calc_stand, calc_usr_stand, calc_bet, limit
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
 from flask_login import current_user
+from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
+from widgets import MyEditWidget
+
+class BS3TextFieldROWidget(BS3TextFieldWidget):
+    def __call__(self, field, **kwargs):
+        kwargs['readonly'] = 'true'
+        return super(BS3TextFieldROWidget, self).__call__(field, **kwargs)
+
 
 class GroupsView(ModelView):
     datamodel = SQLAInterface(Groups)
@@ -36,15 +45,7 @@ class GamesView(ModelView):
     label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2'}
     base_filters = [['round', FilterStartsWith, "Round of 32" ]]
     base_order = ['date','asc']
-    base_permissions = ['can_list']
-    order_columns = ['']
-    page_size = 48
-
-class GamesViewAdm(ModelView):
-    datamodel = SQLAInterface(Games)
-    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','team1.groups.name','stadium','goal1','goal2','round']
-    label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2'}
-    base_order = ['date','asc']
+    base_permissions = ['can_list','can_edit']
     edit_columns = ['goal1','goal2']
     page_size = 48
 
@@ -57,9 +58,19 @@ class GamesViewAdm(ModelView):
         self.update_redirect()
         return redirect(self.get_redirect())
 
+class GamesView16(ModelView):
+    datamodel = SQLAInterface(Games)
+    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','team1.groups.name','stadium','goal1','goal2','round']
+    label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2'}
+    base_filters = [['round', FilterStartsWith, "Round of 16" ]]
+    base_order = ['date','asc']
+    base_permissions = ['can_list','can_edit']
+    edit_columns = ['goal1','goal2']
+    page_size = 8
+
 class PredictView(ModelView):
     datamodel = SQLAInterface(Predict)
-    list_columns = ['date_nice','flg1_img','team1.name','flg2_img','team2','team1.groups.name','stadium','goal1','goal2','round']
+    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','team1.groups.name','stadium','goal1','goal2','round']
     label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2', 'flg1_img':' ','flg2_img':' '}
     base_filters = [['round', FilterStartsWith, "Round of 32" ],['user_id', FilterEqualFunction, get_user]]
     base_order = ['date','asc']
@@ -77,6 +88,18 @@ class PredictView(ModelView):
             self.datamodel.edit(item)
         self.update_redirect()
         return redirect(self.get_redirect())
+
+class PredictView16(ModelView):
+    datamodel = SQLAInterface(Predict)
+    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','team1.groups.name','stadium','goal1','goal2','round']
+    label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2', 'flg1_img':' ','flg2_img':' '}
+    base_filters = [['round', FilterStartsWith, "Round of 16" ],['user_id', FilterEqualFunction, get_user]]
+    base_order = ['date','asc']
+    order_columns = ['date','stadium']
+    base_permissions = limit()
+    edit_columns = ['goal1','goal2']
+    edit_widget=FormInlineWidget
+    page_size = 8
 
 class Stand32View(ModelView):
     datamodel = SQLAInterface(Stand32)
@@ -189,17 +212,30 @@ appbuilder.add_view(GamesView, "Games",
                     category="Game Results",
                     category_icon = "fa-list-ol")
 
-appbuilder.add_view(GamesViewAdm, "Games_Mod",
-                    icon = "fa-calendar",
-                    category="Game Results")
-
 appbuilder.add_view(Stand32View, "Standings",
                     label=_('Group Standings'),
                     icon = "fa-list-ol",
                     category="Game Results")
 
+appbuilder.add_view(GamesView16, "Round 16",
+                    label=_('Round 16'),
+                    icon = "fa-calendar",
+                    category="Game Results",
+                    category_icon = "fa-list-ol")
+
 appbuilder.add_view(PredictView, "Your Prediction",
                     label=_('Your Prediction'),
+                    icon = "fa-futbol-o",
+                    category="Your Prediction",
+                    category_icon = "fa-thumbs-up")
+
+appbuilder.add_view(UsrStand32View, "Your Group Prediction",
+                    label=_('Your Group Prediction'),
+                    icon = "fa-list",
+                    category="Your Prediction")
+
+appbuilder.add_view(PredictView16, "UR Pred Rnd 16",
+                    label=_('UR Pred Rnd 16'),
                     icon = "fa-futbol-o",
                     category="Your Prediction",
                     category_icon = "fa-thumbs-up")
@@ -208,11 +244,6 @@ appbuilder.add_view_no_menu(AllGameScores())
 appbuilder.add_link("Games Results Score", label=_('Games Results Score'), href='/GameScores/listAll/User', icon = "fa-check", category='Users Standings')
 appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href='/GameScores/list/User', icon = "fa-check", category='Users Standings')
 appbuilder.add_link("Deposit your $10",label=_('Deposit your $20'), href='http://paypal.me/jcmarin/20', icon = "fa-money", category='$$$')
-
-appbuilder.add_view(UsrStand32View, "Your Group Prediction",
-                    label=_('Your Group Prediction'),
-                    icon = "fa-list",
-                    category="Your Prediction")
 
 appbuilder.add_view(UsrScoresView, "Scores",
                     label=_('Participants Scores'),

@@ -56,7 +56,7 @@ class Games(Model):
     team2_id = Column(Integer, ForeignKey('teams.id'), nullable=False)
     team1 = relationship("Teams", foreign_keys=[team1_id])
     team2 = relationship("Teams", foreign_keys=[team2_id])
-    date = Column(DateTime) # FIXME: JcMarin: Sqlite does not have dattime change for MySQL
+    date = Column(DateTime) 
     stadium = Column(String(25))
     goal1 = Column(Integer)
     goal2 = Column(Integer)
