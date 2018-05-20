@@ -1,4 +1,4 @@
-import logging
+import logging, datetime
 from flask import Flask, render_template, g
 from flask_appbuilder import SQLA, AppBuilder, BaseView, expose, has_access
 from app.index import JCIndexView
@@ -10,7 +10,7 @@ from flask_login import current_user
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 logging.getLogger().setLevel(logging.DEBUG)
 
-
+now=datetime.datetime.now()
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLA(app)
@@ -29,10 +29,3 @@ def load_users():
         # calc_stand()
     else:
         v_usr = '0' # user 0 = none
-
-# @app.route("/query", methods=['GET', 'POST'])
-# def query():
-#     usr = current_user.get_id() # return username in get_id()
-#     res = db.session.execute('SELECT * FROM comp_stand WHERE user_id ='+usr+' order by groups_id, pts desc')
-#     list = ['usr','Grp','Team','TPts','Won','Loss','Draw','G-Fa','G-Ag','GDif','Pts','Won','Loss','Draw','G-Fa','G-Ag','GDif']
-#     return render_template('query.html', res=res, list=list)
