@@ -10,7 +10,6 @@ from flask_login import current_user
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 logging.getLogger().setLevel(logging.DEBUG)
 
-now=datetime.datetime.now()
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLA(app)
@@ -23,6 +22,7 @@ from app import views
 def load_users():
     if current_user.is_authenticated():
         usr = current_user.get_id() # return username in get_id()
+        now=datetime.datetime.now()
         add_records(usr)
         add_UsrScores(usr)
         has_changed(usr)
