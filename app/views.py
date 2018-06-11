@@ -138,7 +138,7 @@ class UsrScoresView(ModelView):
     datamodel = SQLAInterface(UsrScores)
     list_columns = ['ab_user.first_name', 'ab_user.last_name', 'round', 'pts_total', 'pts_game','pts_score','pts_stand','has_paid']
     label_columns = {'pts_total':'Total Points' ,'pts_game':'Correct Game Winner', 'pts_score':'Correct Game Score','pts_stand':'Correct Group Standing Pts','has_paid':'has paid?'}
-    base_permissions = ['can_list']
+    base_permissions = ['can_list','can_edit']
     order_columns = ['pts_total']
     list_template = 'list_stand.html'
     page_size = 20
