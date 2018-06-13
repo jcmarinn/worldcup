@@ -137,9 +137,11 @@ class UsrStand32View(ModelView):
 class UsrScoresView(ModelView):
     datamodel = SQLAInterface(UsrScores)
     list_columns = ['ab_user.first_name', 'ab_user.last_name', 'round', 'pts_total', 'pts_game','pts_score','pts_stand','has_paid']
-    label_columns = {'pts_total':'Total Points' ,'pts_game':'Correct Game Winner', 'pts_score':'Correct Game Score','pts_stand':'Correct Group Standing Pts','has_paid':'has paid?'}
+    label_columns = {'ab_user.first_name':'First Name','ab_user.last_name':'Last Name', 'pts_total':'Total Points' ,'pts_game':'Correct Game Winner', 'pts_score':'Correct Game Score','pts_stand':'Correct Group Standing Pts','has_paid':'has paid?'}
     base_permissions = ['can_list','can_edit']
-    order_columns = ['pts_total']
+    order_columns = ['ab_user.first_name', 'ab_user.last_name', 'pts_total']
+    base_order = ['ab_user.first_name', 'asc']
+    # base_filters = [['has_paid', FilterStartsWith, '1']]
     list_template = 'list_stand.html'
     page_size = 20
     extra_args = {'footer1':_('Points awarded as follow:'),
@@ -163,7 +165,7 @@ class AllGameScores(BaseView):
     def list(self, usr):
         if usr == 'User':
             usr = current_user.first_name+' '+current_user.last_name
-        usrs = db.session.execute('SELECT distinct usr_name from comp_stand')
+        usrs = db.session.execute('SELECT distinct usr_name from comp_stand order by usr_name')
         res = db.session.execute('SELECT * FROM comp_stand WHERE usr_name ='+r"'"+usr+r"'"+' order by grp, pos')
         list = ['usr','Grp','Team','Pos', 'Pts','Won','Loss','Draw','G-Fa','G-Ag','GDif','Pos','Pts','Won','Loss','Draw','G-Fa','G-Ag','GDif']
         return self.render_template('comp_stand.html', usrs=usrs, res=res, list=list)
@@ -173,7 +175,7 @@ class AllGameScores(BaseView):
     def listAll(self, usr):
         if usr == 'User':
             usr = current_user.first_name+' '+current_user.last_name
-        usrs = db.session.execute('SELECT distinct name from comp_games')
+        usrs = db.session.execute('SELECT distinct name from comp_games order by name')
         res = db.session.execute('SELECT * FROM comp_games where name ='+r"'"+usr+r"'")
         list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
         return self.render_template('comp_games.html', usrs=usrs, res=res, list=list)
@@ -183,10 +185,14 @@ class AllGameScores(BaseView):
     def Instructions(self):
         return self.render_template('Instructions.html')
 
-
 class ControlView(ModelView):
     datamodel = SQLAInterface(Control)
     list_columns = ['id','user_id','name','total']
+
+
+class LoginView(ModelView):
+    datamodel = SQLAInterface(User)
+    list_columns = ['id','first_name','last_name','last_login']
 
 appbuilder.add_link("Instructions",label=_('Instructions'), href='/GameScores/Instructions', icon = "fa-question", category='Rules')
 
@@ -251,6 +257,11 @@ appbuilder.add_view(UsrScoresView, "Scores",
                     category="Users Standings")
 
 appbuilder.add_view(ControlView, "Control",
+                    icon="fa-users",
+                    category="Security")
+
+
+appbuilder.add_view(LoginView, "Last Logins",
                     icon="fa-users",
                     category="Security")
 
