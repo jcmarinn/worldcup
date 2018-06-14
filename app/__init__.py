@@ -22,8 +22,8 @@ from app import views
 @app.context_processor
 def todays():
     now=datetime.now()
-    last_day=datetime(2018,6,14)
-    dif=last_day-now
+    last_day=datetime(2018,6,13)
+    dif=now-last_day
     return dict(dif=str(dif.days))
 
 app.jinja_env.globals.update(todays=todays)
