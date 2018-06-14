@@ -80,14 +80,14 @@ class PredictView(ModelView):
     edit_widget=FormInlineWidget
     page_size = 48
 
-    @action("clear","Clear Scores","Do you really want to clear your prediction for these records?","fa-exclamation-triangle", single=False)
-    def clear(self, items):
-        for item in items:
-            item.goal1 = None
-            item.goal2=None
-            self.datamodel.edit(item)
-        self.update_redirect()
-        return redirect(self.get_redirect())
+    # @action("clear","Clear Scores","Do you really want to clear your prediction for these records?","fa-exclamation-triangle", single=False)
+    # def clear(self, items):
+    #     for item in items:
+    #         item.goal1 = None
+    #         item.goal2=None
+    #         self.datamodel.edit(item)
+    #     self.update_redirect()
+    #     return redirect(self.get_redirect())
 
 class PredictView16(ModelView):
     datamodel = SQLAInterface(Predict)
