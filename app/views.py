@@ -140,10 +140,10 @@ class UsrScoresView(ModelView):
     label_columns = {'ab_user.first_name':'First Name','ab_user.last_name':'Last Name', 'pts_total':'Total Points' ,'pts_game':'Correct Game Winner', 'pts_score':'Correct Game Score','pts_stand':'Correct Group Standing Pts','has_paid':'has paid?'}
     base_permissions = ['can_list','can_edit']
     order_columns = ['ab_user.first_name', 'ab_user.last_name', 'pts_total']
-    base_order = ['ab_user.first_name', 'asc']
-    # base_filters = [['has_paid', FilterStartsWith, '1']]
+    base_order = ['pts_total', 'desc']
+    base_filters = [['has_paid', FilterStartsWith, '1']]
     list_template = 'list_stand.html'
-    page_size = 20
+    page_size = 38
     extra_args = {'footer1':_('Points awarded as follow:'),
                   'footer2':_('1) 1 x Point for every correct Game Winner/Draw Result (1 pts per Game)'),
                   'footer3':_('2) 2 x Additional points for every exact Game Score (3 total pts per Game)'),
@@ -185,6 +185,15 @@ class AllGameScores(BaseView):
     def Instructions(self):
         return self.render_template('Instructions.html')
 
+
+    @expose('/Special')
+    @has_access
+    def Special(self):
+        # for i in range(38):
+        #     print i+1
+        #     calc_usr_stand(i+1)
+        return self.render_template('Special.html')
+
 class ControlView(ModelView):
     datamodel = SQLAInterface(Control)
     list_columns = ['id','user_id','name','total']
@@ -195,6 +204,7 @@ class LoginView(ModelView):
     list_columns = ['id','first_name','last_name','last_login']
 
 appbuilder.add_link("Instructions",label=_('Instructions'), href='/GameScores/Instructions', icon = "fa-question", category='Rules')
+appbuilder.add_link("Special",label=_('Special'), href='/GameScores/Special', category='Rules')
 
 appbuilder.add_view(GroupsTeams, "Groups",
                     href='/groupsteams/list/1',
