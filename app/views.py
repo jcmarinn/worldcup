@@ -60,12 +60,12 @@ class GamesView(ModelView):
 
 class GamesView16(ModelView):
     datamodel = SQLAInterface(Games)
-    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','team1.groups.name','stadium','goal1','goal2','round']
+    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','stadium','goal1','goal2','round']
     label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2'}
     base_filters = [['round', FilterStartsWith, "Round of 16" ]]
     base_order = ['date','asc']
     base_permissions = ['can_list','can_edit']
-    edit_columns = ['goal1','goal2']
+    edit_columns = ['team1','goal1','team2','goal2','date']
     page_size = 8
 
 class PredictView(ModelView):
@@ -91,12 +91,12 @@ class PredictView(ModelView):
 
 class PredictView16(ModelView):
     datamodel = SQLAInterface(Predict)
-    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','team1.groups.name','stadium','goal1','goal2','round']
+    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','stadium','goal1','goal2','round']
     label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2', 'flg1_img':' ','flg2_img':' '}
     base_filters = [['round', FilterStartsWith, "Round of 16" ],['user_id', FilterEqualFunction, get_user]]
     base_order = ['date','asc']
     order_columns = ['date','stadium']
-    base_permissions = limit()
+    # base_permissions = limit()
     edit_columns = ['goal1','goal2']
     edit_widget=FormInlineWidget
     page_size = 8
