@@ -189,9 +189,9 @@ class AllGameScores(BaseView):
     @expose('/Special')
     @has_access
     def Special(self):
-        # for i in range(38):
-        #     print i+1
-        #     calc_usr_stand(i+1)
+        for i in range(38):
+            print i+1
+            calc_usr_stand(i+1)
         return self.render_template('Special.html')
 
 class ControlView(ModelView):
@@ -259,7 +259,7 @@ appbuilder.add_view(PredictView16, "UR Pred Rnd 16",
 appbuilder.add_view_no_menu(AllGameScores())
 appbuilder.add_link("Games Results Score", label=_('Games Results Score'), href='/GameScores/listAll/User', icon = "fa-check", category='Users Standings')
 appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href='/GameScores/list/User', icon = "fa-check", category='Users Standings')
-appbuilder.add_link("Deposit your $10",label=_('Deposit your $20'), href='http://paypal.me/jcmarin/20', icon = "fa-money", category='$$$')
+# appbuilder.add_link("Deposit your $10",label=_('Deposit your $20'), href='http://paypal.me/jcmarin/20', icon = "fa-money", category='$$$')
 
 appbuilder.add_view(UsrScoresView, "Scores",
                     label=_('Participants Scores'),

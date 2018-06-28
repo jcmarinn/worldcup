@@ -131,7 +131,7 @@ def calc_stand():
     db.session.execute('UPDATE Stand32 set pos=0, pts=0, won=0, loss=0, draw=0, gf=0, ga=0, gd=0')
     db.session.commit()
     # Update Teams Points and Goals
-    e=db.session.query(Games).filter(Games.goal1 != None)
+    e=db.session.query(Games).filter(Games.goal1 != None, Games.round=='Round of 32')
     for r in e:
         # Search Standing team_1
         x=db.session.query(Stand32).filter(Stand32.teams_id == r.team1_id)
@@ -186,7 +186,7 @@ def calc_stand():
 def calc_usr_stand(usr):
     db.session.execute('UPDATE usr_stand32 set pos=0, pts=0, won=0, loss=0, draw=0, gf=0, ga=0, gd=0 WHERE user_id='+str(usr))
     db.session.commit()
-    e=db.session.query(Predict).filter(Predict.goal1 != None, Predict.user_id == usr)
+    e=db.session.query(Predict).filter(Predict.goal1 != None, Predict.user_id == usr, Predict.round=='Round of 32')
     for r in e:
         # Search Standing team_1
         x=db.session.query(UsrStand32).filter(UsrStand32.teams_id == r.team1_id, UsrStand32.user_id == usr)
@@ -222,7 +222,7 @@ def calc_usr_stand(usr):
     db.session.commit()
     cont=1
     grp=1
-    e=db.session.query(UsrStand32, Teams).filter(UsrStand32.teams_id == Teams.id, UsrStand32.won+UsrStand32.loss+UsrStand32.draw !=0, UsrStand32.user_id == usr).order_by(Teams.groups_id, UsrStand32.pts+UsrStand32.gd.desc()).all()
+    e=db.session.query(UsrStand32, Teams).filter(UsrStand32.teams_id == Teams.id, UsrStand32.won+UsrStand32.loss+UsrStand32.draw !=0, UsrStand32.user_id == usr).order_by(Teams.groups_id, UsrStand32.pts.desc(), UsrStand32.gd.desc(), UsrStand32.gf.desc()).all()
     for r in e:
         x=db.session.query(TmpStd).filter(TmpStd.id_id == r.UsrStand32.id_id, TmpStd.user_id == usr)
         if r.Teams.groups_id == grp:
