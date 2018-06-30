@@ -56,7 +56,7 @@ class Games(Model):
     team2_id = Column(Integer, ForeignKey('teams.id'), nullable=False)
     team1 = relationship("Teams", foreign_keys=[team1_id])
     team2 = relationship("Teams", foreign_keys=[team2_id])
-    date = Column(DateTime) 
+    date = Column(DateTime)
     stadium = Column(String(25))
     goal1 = Column(Integer)
     goal2 = Column(Integer)
@@ -152,6 +152,8 @@ class  UsrScores(Model):
     pts_score = Column(Integer)
     pts_stand= Column(Integer)
     has_paid=Column(Boolean)
+    pts_16 = Column(Integer)
+    pts_scr16 = Column(Integer)
 
     def __repr__(self):
         return self.name

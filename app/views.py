@@ -9,7 +9,7 @@ from app import appbuilder, db
 from models import *
 from flask_appbuilder.widgets import FormInlineWidget
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
-from functions import calc_stand, calc_usr_stand, calc_bet, limit
+from functions import calc_stand, calc_usr_stand, calc_bet, calc_bet16, limit
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
 from flask_login import current_user
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
@@ -136,8 +136,8 @@ class UsrStand32View(ModelView):
 
 class UsrScoresView(ModelView):
     datamodel = SQLAInterface(UsrScores)
-    list_columns = ['ab_user.first_name', 'ab_user.last_name', 'round', 'pts_total', 'pts_game','pts_score','pts_stand','has_paid']
-    label_columns = {'ab_user.first_name':'First Name','ab_user.last_name':'Last Name', 'pts_total':'Total Points' ,'pts_game':'Correct Game Winner', 'pts_score':'Correct Game Score','pts_stand':'Correct Group Standing Pts','has_paid':'has paid?'}
+    list_columns = ['ab_user.first_name', 'ab_user.last_name', 'pts_total', 'pts_game','pts_score','pts_stand','pts_16','pts_scr16','has_paid']
+    label_columns = {'ab_user.first_name':'First Name','ab_user.last_name':'Last Name', 'pts_total':'Total Pts' ,'pts_game':'Pts Rnd32', 'pts_score':'Pts exact 32','pts_stand':'Pts Group Stand','pts_16':'Pts Rnd16','has_paid':'has paid?', 'pts_scr16':'Pts Exact 16'}
     base_permissions = ['can_list','can_edit']
     order_columns = ['ab_user.first_name', 'ab_user.last_name', 'pts_total']
     base_order = ['pts_total', 'desc']
@@ -145,24 +145,24 @@ class UsrScoresView(ModelView):
     list_template = 'list_stand.html'
     page_size = 38
     extra_args = {'footer1':_('Points awarded as follow:'),
-                  'footer2':_('1) 1 x Point for every correct Game Winner/Draw Result (1 pts per Game)'),
-                  'footer3':_('2) 2 x Additional points for every exact Game Score (3 total pts per Game)'),
+                  'footer2':_('1) 1 x Point for correct Game Rnd 32 / 3 x Pts for correct Round of 16'),
+                  'footer3':_('2) 2 x Additional points for every exact Game Score (regardles of round)'),
                   'footer4':_('3) 3 x Points for every correct Group standing (3 pts per Group Standing)'),
                   'footer5':'',
                   }
 
     @action("update","Calculate All Scores","This will update all people results","fa-check", single=False)
     def update(self, items):
-        calc_bet()
+        calc_bet16()
         self.update_redirect()
         return redirect(self.get_redirect())
 
 class AllGameScores(BaseView):
     route_base = "/GameScores"
 
-    @expose('/list/<string:usr>')
+    @expose('/group/<string:usr>')
     @has_access
-    def list(self, usr):
+    def group(self, usr):
         if usr == 'User':
             usr = current_user.first_name+' '+current_user.last_name
         usrs = db.session.execute('SELECT distinct usr_name from comp_stand order by usr_name')
@@ -170,15 +170,26 @@ class AllGameScores(BaseView):
         list = ['usr','Grp','Team','Pos', 'Pts','Won','Loss','Draw','G-Fa','G-Ag','GDif','Pos','Pts','Won','Loss','Draw','G-Fa','G-Ag','GDif']
         return self.render_template('comp_stand.html', usrs=usrs, res=res, list=list)
 
-    @expose('/listAll/<string:usr>')
+    @expose('/rnd32/<string:usr>')
     @has_access
-    def listAll(self, usr):
+    def rnd32(self, usr):
         if usr == 'User':
             usr = current_user.first_name+' '+current_user.last_name
         usrs = db.session.execute('SELECT distinct name from comp_games order by name')
         res = db.session.execute('SELECT * FROM comp_games where name ='+r"'"+usr+r"'")
         list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
         return self.render_template('comp_games.html', usrs=usrs, res=res, list=list)
+
+    @expose('/rnd16/<string:usr>')
+    @has_access
+    def rnd16(self, usr):
+        if usr == 'User':
+            usr = current_user.first_name+' '+current_user.last_name
+        usrs = db.session.execute('SELECT distinct name from comp_rnd16 order by name')
+        res = db.session.execute('SELECT * FROM comp_rnd16 where name ='+r"'"+usr+r"'")
+        list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
+        return self.render_template('comp_rnd16.html', usrs=usrs, res=res, list=list)
+
 
     @expose('/Instructions')
     @has_access
@@ -257,8 +268,9 @@ appbuilder.add_view(PredictView16, "UR Pred Rnd 16",
                     category_icon = "fa-thumbs-up")
 
 appbuilder.add_view_no_menu(AllGameScores())
-appbuilder.add_link("Games Results Score", label=_('Games Results Score'), href='/GameScores/listAll/User', icon = "fa-check", category='Users Standings')
-appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href='/GameScores/list/User', icon = "fa-check", category='Users Standings')
+appbuilder.add_link("Games Rnd32 Score", label=_('Games Rnd32 Score'), href='/GameScores/rnd32/User', icon = "fa-check", category='Users Standings')
+appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href='/GameScores/group/User', icon = "fa-check", category='Users Standings')
+appbuilder.add_link("Games Rnd16 Score", label=_('Games Rnd16 Score'), href='/GameScores/rnd16/User', icon = "fa-check", category='Users Standings')
 # appbuilder.add_link("Deposit your $10",label=_('Deposit your $20'), href='http://paypal.me/jcmarin/20', icon = "fa-money", category='$$$')
 
 appbuilder.add_view(UsrScoresView, "Scores",

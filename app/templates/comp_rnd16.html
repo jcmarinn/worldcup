@@ -7,7 +7,7 @@
        <=== Select user to show his points
     <ul class="dropdown-menu">
     {% for rows in usrs %}
-      <li><a href='/GameScores/rnd32/{{rows.name}}'>{{rows.name}}</a></li>
+      <li><a href='/GameScores/rnd16/{{rows.name}}'>{{rows.name}}</a></li>
     {% endfor %}
     </ul>
   </div>
@@ -16,8 +16,8 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th style="background-color:#55FF55">+2</th>
-          <th style="background-color:#ccffcc">+1</th>
+          <th style="background-color:#55FF55">+2 (+5)</th>
+          <th style="background-color:#ccffcc">+3</th>
           <th style="background-color:#fcb479">0 Points</th>
           <th style="background-color:#ffffff"><font color="Red">Pending</th>
           <th scope="col" style="background-color:#3490ba"><font color="white">{{ _('Real Scores') }}</th>

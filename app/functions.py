@@ -242,7 +242,7 @@ def calc_usr_stand(usr):
 def calc_bet():
     db.session.execute('UPDATE usr_scores set pts_total=0, pts_game=0, pts_score=0, pts_stand=0')
     db.session.commit()
-    e=db.session.query(Games).filter(Games.goal1 != None)
+    e=db.session.query(Games).filter(Games.goal1 != None, Games.round=='Round of 32')
     if e.count() !=0:
         for r in e:
             x=db.session.query(Predict).filter(Predict.team1_id == r.team1_id, Predict.team2_id == r.team2_id, Predict.goal1 != None)
@@ -269,6 +269,25 @@ def calc_bet():
                         if r.pos==i.pos:
                             zz.pts_stand=zz.pts_stand+3
                         zz.pts_total=zz.pts_game+zz.pts_score+zz.pts_stand
+                        db.session.commit()
+
+def calc_bet16():
+    e=db.session.query(Games).filter(Games.goal1 != None, Games.round=='Round of 16')
+    if e.count() !=0:
+        db.session.execute('UPDATE usr_scores set pts_total=0, pts_16=0, pts_scr16=0')
+        db.session.commit()
+        for r in e:
+            x=db.session.query(Predict).filter(Predict.round=='Round of 16', Predict.team1_id == r.team1_id, Predict.team2_id == r.team2_id, Predict.goal1 != None)
+            if x.count() !=0:
+                for i in x:
+                    z=db.session.query(UsrScores).filter(UsrScores.user_id == i.user_id)
+                    if z.count() !=0:
+                        zz=z[0]
+                        if is_correct(r.goal1,r.goal2,i.goal1,i.goal2):
+                            zz.pts_16=zz.pts_16+3
+                        if (r.goal1==i.goal1)&(r.goal2==i.goal2):
+                            zz.pts_score=zz.pts_score+2
+                        zz.pts_total=zz.pts_game+zz.pts_score+zz.pts_stand+zz.pts_16
                         db.session.commit()
 
 
