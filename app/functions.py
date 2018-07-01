@@ -286,8 +286,8 @@ def calc_bet16():
                         if is_correct(r.goal1,r.goal2,i.goal1,i.goal2):
                             zz.pts_16=zz.pts_16+3
                         if (r.goal1==i.goal1)&(r.goal2==i.goal2):
-                            zz.pts_score=zz.pts_score+2
-                        zz.pts_total=zz.pts_game+zz.pts_score+zz.pts_stand+zz.pts_16
+                            zz.pts_scr16=zz.pts_scr16+2
+                        zz.pts_total=zz.pts_game+zz.pts_score+zz.pts_stand+zz.pts_16+zz.pts_scr16
                         db.session.commit()
 
 
