@@ -1,6 +1,6 @@
 from flask import render_template, flash, g, redirect, session
 from flask_appbuilder.models.sqla.interface import SQLAInterface
-from flask_appbuilder.models.sqla.filters import FilterStartsWith, FilterEqualFunction
+from flask_appbuilder.models.sqla.filters import FilterStartsWith, FilterEqualFunction, FilterNotEqual
 from flask_appbuilder.actions import action
 from flask_appbuilder.fieldwidgets import TextField
 from flask_appbuilder import ModelView, CompactCRUDMixin, MasterDetailView, MultipleView, AppBuilder, expose, BaseView, has_access
@@ -62,11 +62,11 @@ class GamesView16(ModelView):
     datamodel = SQLAInterface(Games)
     list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','stadium','goal1','goal2','round']
     label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2'}
-    base_filters = [['round', FilterStartsWith, "Round of 16" ]]
+    base_filters = [['round', FilterNotEqual, "Round of 32" ]]
     base_order = ['date','asc']
     base_permissions = ['can_list','can_edit']
     edit_columns = ['team1','goal1','team2','goal2','date']
-    page_size = 8
+    page_size = 16
 
 class PredictView(ModelView):
     datamodel = SQLAInterface(Predict)
@@ -96,10 +96,42 @@ class PredictView16(ModelView):
     base_filters = [['round', FilterStartsWith, "Round of 16" ],['user_id', FilterEqualFunction, get_user]]
     base_order = ['date','asc']
     order_columns = ['date','stadium']
-    # base_permissions = limit()
     edit_columns = ['goal1','goal2']
     edit_widget=FormInlineWidget
     page_size = 8
+
+class PredictViewQF(ModelView):
+    datamodel = SQLAInterface(Predict)
+    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','stadium','goal1','goal2','round']
+    label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2', 'flg1_img':' ','flg2_img':' '}
+    base_filters = [['round', FilterStartsWith, "Quarter Finals" ],['user_id', FilterEqualFunction, get_user]]
+    base_order = ['date','asc']
+    order_columns = ['date','stadium']
+    edit_columns = ['goal1','goal2']
+    edit_widget=FormInlineWidget
+    page_size = 4
+
+class PredictViewSF(ModelView):
+    datamodel = SQLAInterface(Predict)
+    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','stadium','goal1','goal2','round']
+    label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2', 'flg1_img':' ','flg2_img':' '}
+    base_filters = [['round', FilterStartsWith, "Semi Finals" ],['user_id', FilterEqualFunction, get_user]]
+    base_order = ['date','asc']
+    order_columns = ['date','stadium']
+    edit_columns = ['goal1','goal2']
+    edit_widget=FormInlineWidget
+    page_size = 2
+
+class PredictViewF(ModelView):
+    datamodel = SQLAInterface(Predict)
+    list_columns = ['date_nice','flg1_img','team1','flg2_img','team2','stadium','goal1','goal2','round']
+    label_columns = {'date_nice':'Date','team1.groups.name':'Group', 'team1':'Team 1', 'team2':'Team 2', 'goal1':'Goals T1', 'goal2':'Goals T2', 'flg1_img':' ','flg2_img':' '}
+    base_filters = [['round', FilterStartsWith, "Final" ],['user_id', FilterEqualFunction, get_user]]
+    base_order = ['date','asc']
+    order_columns = ['date','stadium']
+    edit_columns = ['goal1','goal2']
+    edit_widget=FormInlineWidget
+    page_size = 1
 
 class Stand32View(ModelView):
     datamodel = SQLAInterface(Stand32)
@@ -136,8 +168,8 @@ class UsrStand32View(ModelView):
 
 class UsrScoresView(ModelView):
     datamodel = SQLAInterface(UsrScores)
-    list_columns = ['ab_user.first_name', 'ab_user.last_name', 'pts_total', 'pts_game','pts_score','pts_stand','pts_16','pts_scr16','has_paid']
-    label_columns = {'ab_user.first_name':'First Name','ab_user.last_name':'Last Name', 'pts_total':'Total Pts' ,'pts_game':'Pts Rnd32', 'pts_score':'Pts exact 32','pts_stand':'Pts Group Stand','pts_16':'Pts Rnd16','has_paid':'has paid?', 'pts_scr16':'Pts Exact 16'}
+    list_columns = ['ab_user.first_name', 'ab_user.last_name', 'pts_total', 'pts_game','pts_score','pts_stand','pts_16','pts_scr16','pts_qf','pts_scrqf','pts_sf','pts_scrsf','pts_f','pts_scrf','has_paid']
+    label_columns = {'ab_user.first_name':'First Name','ab_user.last_name':'Last Name', 'pts_total':'Total Points' ,'pts_game':'Rnd32', 'pts_score':'Exact 32','pts_stand':'Group','pts_16':'Rnd16','has_paid':'has paid?', 'pts_scr16':'E-16','pts_scrqf':'E-QF', 'pts_scrsf':'E-SF', 'pts_scrf':'E-F'}
     base_permissions = ['can_list','can_edit']
     order_columns = ['ab_user.first_name', 'ab_user.last_name', 'pts_total']
     base_order = ['pts_total', 'desc']
@@ -245,7 +277,7 @@ appbuilder.add_view(Stand32View, "Standings",
                     category="Game Results")
 
 appbuilder.add_view(GamesView16, "Round 16",
-                    label=_('Round 16'),
+                    label=_('Rnd 16/ QF / SM & Final'),
                     icon = "fa-calendar",
                     category="Game Results",
                     category_icon = "fa-list-ol")
@@ -263,6 +295,24 @@ appbuilder.add_view(UsrStand32View, "Your Group Prediction",
 
 appbuilder.add_view(PredictView16, "UR Pred Rnd 16",
                     label=_('UR Pred Rnd 16'),
+                    icon = "fa-futbol-o",
+                    category="Your Prediction",
+                    category_icon = "fa-thumbs-up")
+
+appbuilder.add_view(PredictViewQF, "UR Pred Qtr Finals",
+                    label=_('UR Pred Qtr Finals'),
+                    icon = "fa-futbol-o",
+                    category="Your Prediction",
+                    category_icon = "fa-thumbs-up")
+
+appbuilder.add_view(PredictViewSF, "UR Pred SemiFinals",
+                    label=_('UR Pred SemiFinals'),
+                    icon = "fa-futbol-o",
+                    category="Your Prediction",
+                    category_icon = "fa-thumbs-up")
+
+appbuilder.add_view(PredictViewF, "UR Pred Final",
+                    label=_('UR Pred Final'),
                     icon = "fa-futbol-o",
                     category="Your Prediction",
                     category_icon = "fa-thumbs-up")

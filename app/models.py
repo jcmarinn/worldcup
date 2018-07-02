@@ -154,6 +154,12 @@ class  UsrScores(Model):
     has_paid=Column(Boolean)
     pts_16 = Column(Integer)
     pts_scr16 = Column(Integer)
+    pts_qf = Column(Integer)
+    pts_scrqf = Column(Integer)
+    pts_sf = Column(Integer)
+    pts_scrsf = Column(Integer)
+    pts_f = Column(Integer)
+    pts_scrf = Column(Integer)
 
     def __repr__(self):
         return self.name
