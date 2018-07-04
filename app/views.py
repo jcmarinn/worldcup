@@ -223,6 +223,17 @@ class AllGameScores(BaseView):
         return self.render_template('comp_rnd16.html', usrs=usrs, res=res, list=list)
 
 
+    @expose('/qf/<string:usr>')
+    @has_access
+    def qf(self, usr):
+        if usr == 'User':
+            usr = current_user.first_name+' '+current_user.last_name
+        usrs = db.session.execute('SELECT distinct name from comp_qf order by name')
+        res = db.session.execute('SELECT * FROM comp_qf where name ='+r"'"+usr+r"'")
+        list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
+        return self.render_template('comp_qf.html', usrs=usrs, res=res, list=list)
+
+
     @expose('/Instructions')
     @has_access
     def Instructions(self):
@@ -321,6 +332,8 @@ appbuilder.add_view_no_menu(AllGameScores())
 appbuilder.add_link("Games Rnd32 Score", label=_('Games Rnd32 Score'), href='/GameScores/rnd32/User', icon = "fa-check", category='Users Standings')
 appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href='/GameScores/group/User', icon = "fa-check", category='Users Standings')
 appbuilder.add_link("Games Rnd16 Score", label=_('Games Rnd16 Score'), href='/GameScores/rnd16/User', icon = "fa-check", category='Users Standings')
+appbuilder.add_link("Games Qtr Final Score", label=_('Games Qtr Final Score'), href='/GameScores/qf/User', icon = "fa-check", category='Users Standings')
+
 # appbuilder.add_link("Deposit your $10",label=_('Deposit your $20'), href='http://paypal.me/jcmarin/20', icon = "fa-money", category='$$$')
 
 appbuilder.add_view(UsrScoresView, "Scores",
