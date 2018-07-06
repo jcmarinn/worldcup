@@ -9,7 +9,7 @@ from app import appbuilder, db
 from models import *
 from flask_appbuilder.widgets import FormInlineWidget
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
-from functions import calc_stand, calc_usr_stand, calc_bet, calc_bet16, limit
+from functions import calc_stand, calc_usr_stand, calc_bet, calc_bet16, limit, calc_betqf
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
 from flask_login import current_user
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
@@ -185,7 +185,7 @@ class UsrScoresView(ModelView):
 
     @action("update","Calculate All Scores","This will update all people results","fa-check", single=False)
     def update(self, items):
-        calc_bet16()
+        calc_betqf()
         self.update_redirect()
         return redirect(self.get_redirect())
 
