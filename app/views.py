@@ -9,7 +9,7 @@ from app import appbuilder, db
 from models import *
 from flask_appbuilder.widgets import FormInlineWidget
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
-from functions import calc_stand, calc_usr_stand, calc_bet, calc_bet16, limit, calc_betqf
+from functions import calc_stand, calc_usr_stand, calc_bet, calc_bet16, limit, calc_betqf, calc_betsf
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
 from flask_login import current_user
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
@@ -185,7 +185,7 @@ class UsrScoresView(ModelView):
 
     @action("update","Calculate All Scores","This will update all people results","fa-check", single=False)
     def update(self, items):
-        calc_betqf()
+        calc_betsf()
         self.update_redirect()
         return redirect(self.get_redirect())
 
@@ -222,7 +222,6 @@ class AllGameScores(BaseView):
         list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
         return self.render_template('comp_rnd16.html', usrs=usrs, res=res, list=list)
 
-
     @expose('/qf/<string:usr>')
     @has_access
     def qf(self, usr):
@@ -232,6 +231,26 @@ class AllGameScores(BaseView):
         res = db.session.execute('SELECT * FROM comp_qf where name ='+r"'"+usr+r"'")
         list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
         return self.render_template('comp_qf.html', usrs=usrs, res=res, list=list)
+
+    @expose('/sf/<string:usr>')
+    @has_access
+    def sf(self, usr):
+        if usr == 'User':
+            usr = current_user.first_name+' '+current_user.last_name
+        usrs = db.session.execute('SELECT distinct name from comp_sf order by name')
+        res = db.session.execute('SELECT * FROM comp_sf where name ='+r"'"+usr+r"'")
+        list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
+        return self.render_template('comp_sf.html', usrs=usrs, res=res, list=list)
+
+    @expose('/f/<string:usr>')
+    @has_access
+    def f(self, usr):
+        if usr == 'User':
+            usr = current_user.first_name+' '+current_user.last_name
+        usrs = db.session.execute('SELECT distinct name from comp_f order by name')
+        res = db.session.execute('SELECT * FROM comp_f where name ='+r"'"+usr+r"'")
+        list = ['usr','Group','Team1','Team2','Goals_T1','Goals_T2','Ur_Pred_T1','Ur_Pred_T2']
+        return self.render_template('comp_f.html', usrs=usrs, res=res, list=list)
 
 
     @expose('/Instructions')
@@ -333,7 +352,8 @@ appbuilder.add_link("Games Rnd32 Score", label=_('Games Rnd32 Score'), href='/Ga
 appbuilder.add_link("Group Standing Score",label=_('Group Standing Score'), href='/GameScores/group/User', icon = "fa-check", category='Users Standings')
 appbuilder.add_link("Games Rnd16 Score", label=_('Games Rnd16 Score'), href='/GameScores/rnd16/User', icon = "fa-check", category='Users Standings')
 appbuilder.add_link("Games Qtr Final Score", label=_('Games Qtr Final Score'), href='/GameScores/qf/User', icon = "fa-check", category='Users Standings')
-
+appbuilder.add_link("Games Semi Final Score", label=_('Games Semi Final Score'), href='/GameScores/sf/User', icon = "fa-check", category='Users Standings')
+appbuilder.add_link("Games Final Score", label=_('Games Final Score'), href='/GameScores/f/User', icon = "fa-check", category='Users Standings')
 # appbuilder.add_link("Deposit your $10",label=_('Deposit your $20'), href='http://paypal.me/jcmarin/20', icon = "fa-money", category='$$$')
 
 appbuilder.add_view(UsrScoresView, "Scores",
