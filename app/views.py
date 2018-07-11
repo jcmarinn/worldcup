@@ -183,8 +183,14 @@ class UsrScoresView(ModelView):
                   'footer5':'',
                   }
 
-    @action("update","Calculate All Scores","This will update all people results","fa-check", single=False)
+    @action("update","Calculate QF","This will update all people results","fa-check", single=False)
     def update(self, items):
+        calc_betqf()
+        self.update_redirect()
+        return redirect(self.get_redirect())
+
+    @action("update2","Calculate SF","This will update all people results","fa-check", single=False)
+    def update2(self, items):
         calc_betsf()
         self.update_redirect()
         return redirect(self.get_redirect())

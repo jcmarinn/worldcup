@@ -325,13 +325,13 @@ def calc_betsf():
                     if z.count() !=0:
                         zz=z[0]
                         if is_correct(r.goal1,r.goal2,i.goal1,i.goal2):
-                            if zz.pts_qf is None:
-                                zz.pts_qf=0
-                            zz.pts_qf=zz.pts_qf+9
+                            if zz.pts_sf is None:
+                                zz.pts_sf=0
+                            zz.pts_sf=zz.pts_sf+9
                         if (r.goal1==i.goal1)&(r.goal2==i.goal2):
-                            if zz.pts_scrqf is None:
-                                zz.pts_scrqf=0
-                            zz.pts_scrqf=zz.pts_scrqf+2
+                            if zz.pts_scrsf is None:
+                                zz.pts_scrsf=0
+                            zz.pts_scrsf=zz.pts_scrsf+2
                         zz.pts_total=zz.pts_game+zz.pts_score+zz.pts_stand+zz.pts_16+zz.pts_scr16+zz.pts_qf+zz.pts_scrqf+zz.pts_sf+zz.pts_scrsf
                         db.session.commit()
 
