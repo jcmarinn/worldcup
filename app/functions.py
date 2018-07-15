@@ -335,6 +335,29 @@ def calc_betsf():
                         zz.pts_total=zz.pts_game+zz.pts_score+zz.pts_stand+zz.pts_16+zz.pts_scr16+zz.pts_qf+zz.pts_scrqf+zz.pts_sf+zz.pts_scrsf
                         db.session.commit()
 
+def calc_betf():
+    e=db.session.query(Games).filter(Games.goal1 != None, Games.round=='Final')
+    if e.count() !=0:
+        db.session.execute('UPDATE usr_scores set pts_total=0, pts_f=0, pts_scrf=0')
+        db.session.commit()
+        for r in e:
+            x=db.session.query(Predict).filter(Predict.round=='Final', Predict.team1_id == r.team1_id, Predict.team2_id == r.team2_id)
+            if x.count() !=0:
+                for i in x:
+                    z=db.session.query(UsrScores).filter(UsrScores.user_id == i.user_id)
+                    if z.count() !=0:
+                        zz=z[0]
+                        if is_correct(r.goal1,r.goal2,i.goal1,i.goal2):
+                            if zz.pts_f is None:
+                                zz.pts_f=0
+                            zz.pts_f=zz.pts_f+15
+                        if (r.goal1==i.goal1)&(r.goal2==i.goal2):
+                            if zz.pts_scrf is None:
+                                zz.pts_scrf=0
+                            zz.pts_scrf=zz.pts_scrf+2
+                        zz.pts_total=zz.pts_game+zz.pts_score+zz.pts_stand+zz.pts_16+zz.pts_scr16+zz.pts_qf+zz.pts_scrqf+zz.pts_sf+zz.pts_scrsf+zz.pts_f+zz.pts_scrf
+                        db.session.commit()
+
 def has_changed(usr):
     e=db.session.query(Control).filter_by(user_id = usr).count()
     if e==0:

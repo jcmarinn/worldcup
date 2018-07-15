@@ -9,7 +9,7 @@ from app import appbuilder, db
 from models import *
 from flask_appbuilder.widgets import FormInlineWidget
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
-from functions import calc_stand, calc_usr_stand, calc_bet, calc_bet16, limit, calc_betqf, calc_betsf
+from functions import calc_stand, calc_usr_stand, calc_bet, calc_bet16, limit, calc_betqf, calc_betsf, calc_betf
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
 from flask_login import current_user
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
@@ -183,17 +183,12 @@ class UsrScoresView(ModelView):
                   'footer5':'',
                   }
 
-    @action("update","Calculate QF","This will update all people results","fa-check", single=False)
+    @action("update","Calculate Final","This will update all people results","fa-check", single=False)
     def update(self, items):
-        calc_betqf()
+        calc_betf()
         self.update_redirect()
         return redirect(self.get_redirect())
 
-    @action("update2","Calculate SF","This will update all people results","fa-check", single=False)
-    def update2(self, items):
-        calc_betsf()
-        self.update_redirect()
-        return redirect(self.get_redirect())
 
 class AllGameScores(BaseView):
     route_base = "/GameScores"
